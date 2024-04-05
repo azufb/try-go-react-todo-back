@@ -3,6 +3,8 @@ services:
   golang:
     build:
       context: .
+    ports:
+      - "8080:8080"
     volumes:
       - ./:/go/src/application
     tty: true
