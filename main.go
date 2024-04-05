@@ -1,15 +1,28 @@
 package main
 
 import (
+	"net/http"
 	"os"
-	"try-go-react-todo-back/router"
+
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 func main() {
+	e := echo.New()
 
-	s := router.NewServer()
+	// middleware
+	e.Use(middleware.CORS())
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		AllowMethods: []string{http.MethodGet},
+	}))
 
-	if err := s.Start(":80"); err != nil {
+	e.GET("/hello", func(c echo.Context) error {
+		return c.String(http.StatusOK, "Hello!")
+	})
+
+	if err := e.Start(":8080"); err != nil {
 		os.Exit(1)
 	}
 }
