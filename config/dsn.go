@@ -1,38 +1,30 @@
 package config
 
 import (
-	"context"
 	"fmt"
+	"log"
 	"os"
 
-	"github.com/aws/aws-sdk-go-v2/config"
-	"github.com/aws/aws-sdk-go-v2/feature/rds/auth"
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/joho/godotenv"
 )
 
 func DSN() string {
+	// .envファイル読み込み
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
 	userName := os.Getenv("DB_MASTER_USER_NAME")
-	// password := os.Getenv("DB_MASTER_PASSWORD")
+	password := os.Getenv("DB_MASTER_PASSWORD")
 	host := os.Getenv("DB_HOST")
 	port := os.Getenv("DB_PORT")
 	dbName := os.Getenv("DB_NAME")
-	// dbUrl := os.Getenv("DB_URL")
-	dbEndpoint := fmt.Sprintf("%s:%s", host, port)
-	region := os.Getenv("DB_REGION")
+	dbEndpoint := host + ":" + port
 
-	cfg, err := config.LoadDefaultConfig(context.TODO())
-	if err != nil {
-		panic("configuration error: " + err.Error())
-	}
-
-	authenticationToken, err := auth.BuildAuthToken(
-		context.TODO(), dbEndpoint, region, userName, cfg.Credentials)
-	if err != nil {
-		panic("failed to create authentication token:" + err.Error())
-	}
-
-	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&tls=true&allowCleartextPasswords=true&parseTime=True&loc=Local",
-		userName, authenticationToken, dbEndpoint, dbName,
+	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+		userName, password, dbEndpoint, dbName,
 	)
 
 	return dsn
