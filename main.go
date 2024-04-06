@@ -1,11 +1,11 @@
 package main
 
 import (
-	"net/http"
+	"fmt"
 	"os"
-
-	"github.com/labstack/echo/v4"
-	"github.com/labstack/echo/v4/middleware"
+	"try-go-react-todo-back/api"
+	"try-go-react-todo-back/api/router"
+	"try-go-react-todo-back/database"
 )
 
 // DBつないでToDoアプリを実装したい
@@ -32,20 +32,29 @@ func delete() error {
 }
 
 func main() {
-	e := echo.New()
+	// データベース接続
+	db, err := database.NewDB()
+	if err != nil {
+		fmt.Errorf("failed to connect to database: %w", err)
+		return
+	}
 
-	// middleware
-	e.Use(middleware.CORS())
-	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
-		AllowOrigins: []string{"*"},
-		AllowMethods: []string{http.MethodGet},
-	}))
+	defer func() {
+		sqlDB, err := db.DB()
+		if err != nil {
+			fmt.Errorf("failed to get sql.db: %w", err)
+		}
+		err = sqlDB.Close()
+		if err != nil {
+			fmt.Errorf("failed to close database connection: %w", err)
+		}
+	}()
 
-	e.GET("/hello", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello!")
-	})
+	todoApi := api.NewTodoAPI(db)
 
-	if err := e.Start(":8080"); err != nil {
+	server := router.NewServer(*todoApi)
+	if err := server.Start(":8080"); err != nil {
+		fmt.Errorf("failed to start server: %w", err)
 		os.Exit(1)
 	}
 }
