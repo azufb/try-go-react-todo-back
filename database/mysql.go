@@ -3,6 +3,7 @@ package database
 import (
 	"fmt"
 	"try-go-react-todo-back/config"
+	"try-go-react-todo-back/database/model"
 
 	_ "github.com/go-sql-driver/mysql"
 	"gorm.io/driver/mysql" // これがBroken Importになるので上のやつ入れる
@@ -30,7 +31,7 @@ func NewDB() (*gorm.DB, error) {
 
 // マイグレーション
 func Migrate(db *gorm.DB) error {
-	if err := db.Set("gorm:table_options", "ENGINE=InnoDB").AutoMigrate(); err != nil {
+	if err := db.Set("gorm:table_options", "ENGINE=InnoDB").AutoMigrate(&model.Todo{}); err != nil {
 		return err
 	}
 

@@ -39,6 +39,11 @@ func main() {
 		return
 	}
 
+	if err := database.Migrate(db); err != nil {
+		fmt.Errorf("failed to migrate: %w", err)
+		return
+	}
+
 	defer func() {
 		sqlDB, err := db.DB()
 		if err != nil {
