@@ -1,6 +1,7 @@
 version: '3'
 services:
   golang:
+    container_name: golang
     build:
       context: .
     ports:
@@ -8,3 +9,17 @@ services:
     volumes:
       - ./:/go/src/application
     tty: true
+  mysql:
+    image: mysql:8.0.35
+    container_name: mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - DB_MASTER_PASSWORD
+      - DB_NAME
+      - DB_MASTER_USER_NAME
+      - TZ=Asia/Tokyo
+    volumes:
+      - ./mysql/mysql-data:/var/lib/mysql
+      - ./mysql:/etc/mysql/conf.d
