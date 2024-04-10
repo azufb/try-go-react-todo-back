@@ -3,9 +3,9 @@ package main
 import (
 	"fmt"
 	"os"
+	"try-go-react-todo-back/api/handler"
 	"try-go-react-todo-back/api/router"
 	"try-go-react-todo-back/database"
-	"try-go-react-todo-back/handler"
 	"try-go-react-todo-back/interface/repository"
 	"try-go-react-todo-back/usecase/interactor"
 )
