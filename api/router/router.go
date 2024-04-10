@@ -2,13 +2,13 @@ package router
 
 import (
 	"net/http"
-	"try-go-react-todo-back/api"
+	"try-go-react-todo-back/handler"
 
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 )
 
-func NewServer(todoApi api.TodoAPI) *echo.Echo {
+func NewServer(todoHandler handler.TodoHandler) *echo.Echo {
 	e := echo.New()
 
 	// middleware
@@ -21,6 +21,8 @@ func NewServer(todoApi api.TodoAPI) *echo.Echo {
 	e.GET("/hello", func(c echo.Context) error {
 		return c.String(http.StatusOK, "Hello!")
 	})
+
+	e.GET("/todo", todoHandler.Todo)
 
 	return e
 }

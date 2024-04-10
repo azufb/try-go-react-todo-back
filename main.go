@@ -3,33 +3,15 @@ package main
 import (
 	"fmt"
 	"os"
-	"try-go-react-todo-back/api"
 	"try-go-react-todo-back/api/router"
 	"try-go-react-todo-back/database"
+	"try-go-react-todo-back/handler"
+	"try-go-react-todo-back/interface/repository"
+	"try-go-react-todo-back/usecase/interactor"
 )
 
 // DBつないでToDoアプリを実装したい
 // DBからのデータ取得・DBにデータ挿入・DBのデータ編集・DBのデータ削除をやる
-
-func todos() error {
-	// 取得
-	return nil
-}
-
-func create() error {
-	// データ挿入
-	return nil
-}
-
-func update() error {
-	// データ編集
-	return nil
-}
-
-func delete() error {
-	// データ削除
-	return nil
-}
 
 func main() {
 	// データベース接続
@@ -55,9 +37,14 @@ func main() {
 		}
 	}()
 
-	todoApi := api.NewTodoAPI(db)
+	// portを持つrepository初期化
+	todoRepository := repository.NewTodoRepository(db)
+	// portを引数に受け取ってusecaseを初期化
+	todoUC := interactor.NewTodoUsecase(todoRepository)
+	// usecaseを引数に受け取ってhandlerを初期化
+	todoHandler := handler.NewTodoHandler(todoUC)
 
-	server := router.NewServer(*todoApi)
+	server := router.NewServer(todoHandler)
 	if err := server.Start(":8080"); err != nil {
 		fmt.Errorf("failed to start server: %w", err)
 		os.Exit(1)
