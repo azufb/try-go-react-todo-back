@@ -2,6 +2,12 @@ package schema
 
 import "try-go-react-todo-back/domain/entity"
 
+// requestの型定義
+type TodoReq struct {
+	ID    string `json:"id"`
+	Title string `json:"title"`
+}
+
 // responseの型定義
 type TodoRes struct {
 	ID     string `json:"id"`

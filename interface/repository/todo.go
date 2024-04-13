@@ -36,3 +36,13 @@ func (t TodoRepository) Todo() ([]entity.Todo, error) {
 
 	return todos, nil
 }
+
+func (t TodoRepository) AddTodo(todo entity.Todo) error {
+	todoModel := &model.Todo{
+		ID:     todo.ID,
+		Title:  todo.Title,
+		Status: "NOT_STARTED",
+	}
+
+	return t.db.Create(todoModel).Error
+}
