@@ -45,3 +45,9 @@ func (t *TodoHandler) AddTodo(c echo.Context) error {
 
 	return c.JSON(http.StatusCreated, "Success!!")
 }
+
+// タスクを削除する
+
+// タスク1つ取得する
+
+// タスクのStatusを変更する
