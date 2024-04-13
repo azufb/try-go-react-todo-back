@@ -28,3 +28,26 @@ func (t *TodoHandler) Todo(c echo.Context) error {
 
 	return c.JSON(http.StatusCreated, schema.TodosResFromEntity(todos))
 }
+
+// タスクを追加する
+func (t *TodoHandler) AddTodo(c echo.Context) error {
+	// request
+	req := &schema.TodoReq{}
+	// requestをreq変数に格納
+	if err := c.Bind(req); err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+
+	err := t.TodoUC.AddTodo(req.ID, req.Title)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusCreated, "Success!!")
+}
+
+// タスクを削除する
+
+// タスク1つ取得する
+
+// タスクのStatusを変更する

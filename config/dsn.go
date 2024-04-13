@@ -23,7 +23,7 @@ func DSN() string {
 	dbName := os.Getenv("DB_NAME")
 	dbEndpoint := host + ":" + port
 
-	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+	dsn := fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&collation=utf8mb4_bin&parseTime=True&loc=Local",
 		userName, password, dbEndpoint, dbName,
 	)
 
