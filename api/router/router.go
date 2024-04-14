@@ -26,5 +26,7 @@ func NewServer(todoHandler handler.TodoHandler) *echo.Echo {
 
 	e.POST("/addTodo", todoHandler.AddTodo)
 
+	e.POST("/deleteTodo", todoHandler.DeleteTodo)
+
 	return e
 }
