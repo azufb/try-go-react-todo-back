@@ -7,7 +7,7 @@ import "try-go-react-todo-back/domain/entity"
 // idカラム・titleカラム・statusカラムがある
 // primary keyはid
 type Todo struct {
-	ID     string `gorm:"primaryKey;size:26;not null"`
+	ID     string `gorm:"primaryKey;size:255;not null"`
 	Title  string `gorm:"size:255;not null"`
 	Status string `gorm:"size:255;not null"`
 }
