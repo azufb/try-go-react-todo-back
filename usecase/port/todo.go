@@ -8,4 +8,5 @@ type TodoRepository interface {
 	Todo() ([]entity.Todo, error)
 	AddTodo(todo entity.Todo) error
 	DeleteTodo(id string) error
+	FindTodo(id string) (entity.Todo, error)
 }
