@@ -47,6 +47,20 @@ func (t *TodoHandler) AddTodo(c echo.Context) error {
 }
 
 // タスクを削除する
+func (t *TodoHandler) DeleteTodo(c echo.Context) error {
+	// request
+	req := &schema.TodoReq{}
+	if err := c.Bind(req); err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+
+	err := t.TodoUC.DeleteTodo(req.ID)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusCreated, "Delete Success!!")
+}
 
 // タスク1つ取得する
 

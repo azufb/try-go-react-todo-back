@@ -46,3 +46,8 @@ func (t TodoRepository) AddTodo(todo entity.Todo) error {
 
 	return t.db.Create(todoModel).Error
 }
+
+func (t TodoRepository) DeleteTodo(id string) error {
+	todoModel := &model.Todo{}
+	return t.db.Delete(todoModel, id).Error
+}

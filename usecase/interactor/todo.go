@@ -33,3 +33,8 @@ func (t TodoUsecase) AddTodo(id string, title string) error {
 	// AddTodoメソッドを呼び出し
 	return t.TodoRepository.AddTodo(todo)
 }
+
+// DeleteTodoメソッド
+func (t TodoUsecase) DeleteTodo(id string) error {
+	return t.TodoRepository.DeleteTodo(id)
+}
