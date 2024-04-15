@@ -30,5 +30,7 @@ func NewServer(todoHandler handler.TodoHandler) *echo.Echo {
 
 	e.POST("/findTodo", todoHandler.FindTodo)
 
+	e.POST("/updateTodo", todoHandler.UpdateTodo)
+
 	return e
 }
