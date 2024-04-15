@@ -61,3 +61,9 @@ func (t TodoRepository) FindTodo(id string) (entity.Todo, error) {
 
 	return todoModel.Entity(), nil
 }
+
+func (t TodoRepository) UpdateTodo(id string) error {
+	todoModel := &model.Todo{}
+
+	return t.db.Model(todoModel).Where("id = ?", id).Update("status", "IN_PROGRESS").Error
+}

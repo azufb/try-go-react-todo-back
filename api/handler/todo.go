@@ -80,3 +80,17 @@ func (t *TodoHandler) FindTodo(c echo.Context) error {
 }
 
 // タスクのStatusを変更する
+func (t *TodoHandler) UpdateTodo(c echo.Context) error {
+	// request
+	req := &schema.TodoReq{}
+	if err := c.Bind(req); err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+
+	err := t.TodoUC.TodoRepository.UpdateTodo(req.ID)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusCreated, "Update Success!!")
+}
