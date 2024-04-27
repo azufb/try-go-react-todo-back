@@ -24,11 +24,13 @@ func (t TodoUsecase) Todo() ([]entity.Todo, error) {
 }
 
 // AddTodoメソッド
-func (t TodoUsecase) AddTodo(id string, title string) error {
+func (t TodoUsecase) AddTodo(id string, title string, description string, tag string) error {
 	// entity.Todoに入れる
 	todo := entity.Todo{
-		ID:    id,
-		Title: title,
+		ID:          id,
+		Title:       title,
+		Description: description,
+		Tag:         tag,
 	}
 	// AddTodoメソッドを呼び出し
 	return t.TodoRepository.AddTodo(todo)

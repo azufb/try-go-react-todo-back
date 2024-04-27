@@ -38,7 +38,7 @@ func (t *TodoHandler) AddTodo(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	err := t.TodoUC.AddTodo(req.ID, req.Title)
+	err := t.TodoUC.AddTodo(req.ID, req.Title, req.Description, req.Tag)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
