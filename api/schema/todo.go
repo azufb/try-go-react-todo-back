@@ -4,8 +4,10 @@ import "try-go-react-todo-back/domain/entity"
 
 // requestの型定義
 type TodoReq struct {
-	ID    string `json:"id"`
-	Title string `json:"title"`
+	ID          string `json:"id"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	Tag         string `json:"tag"`
 }
 
 // responseの型定義
