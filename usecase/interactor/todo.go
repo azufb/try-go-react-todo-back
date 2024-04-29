@@ -41,6 +41,10 @@ func (t TodoUsecase) DeleteTodo(id string) error {
 	return t.TodoRepository.DeleteTodo(id)
 }
 
+func (t TodoUsecase) DeleteTodos(ids []string) error {
+	return t.TodoRepository.DeleteTodos(ids)
+}
+
 func (t TodoUsecase) FindTodo(id string) (entity.Todo, error) {
 	return t.TodoRepository.FindTodo(id)
 }

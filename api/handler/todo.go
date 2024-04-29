@@ -62,6 +62,20 @@ func (t *TodoHandler) DeleteTodo(c echo.Context) error {
 	return c.JSON(http.StatusOK, "Delete Success!!")
 }
 
+func (t *TodoHandler) DeleteTodos(c echo.Context) error {
+	req := &schema.DeleteTodosIds{}
+	if err := c.Bind(req); err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+
+	err := t.TodoUC.DeleteTodos(req.IDs)
+	if err != nil {
+		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, "Delete Success!!")
+}
+
 // タスク1つ取得する
 func (t *TodoHandler) FindTodo(c echo.Context) error {
 	// request
