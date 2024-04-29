@@ -54,6 +54,11 @@ func (t TodoRepository) DeleteTodo(id string) error {
 	return t.db.Delete(todoModel, id).Error
 }
 
+func (t TodoRepository) DeleteTodos(ids []string) error {
+	todoModel := &model.Todo{}
+	return t.db.Delete(todoModel, ids).Error
+}
+
 func (t TodoRepository) FindTodo(id string) (entity.Todo, error) {
 	todoModel := &model.Todo{}
 
