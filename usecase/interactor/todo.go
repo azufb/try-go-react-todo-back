@@ -49,11 +49,12 @@ func (t TodoUsecase) FindTodo(id string) (entity.Todo, error) {
 	return t.TodoRepository.FindTodo(id)
 }
 
-func (t TodoUsecase) UpdateTodo(id string, title string, description string, tag string, level string) error {
+func (t TodoUsecase) UpdateTodo(id string, title string, description string, status string, tag string, level string) error {
 	todo := entity.Todo{
 		ID:          id,
 		Title:       title,
 		Description: description,
+		Status:      status,
 		Tag:         tag,
 		Level:       level,
 	}

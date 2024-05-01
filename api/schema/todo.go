@@ -11,6 +11,15 @@ type TodoReq struct {
 	Level       string `json:"level"`
 }
 
+type UpdateTodoReq struct {
+	ID          string `json:"id"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	Status      string `json:"status"`
+	Tag         string `json:"tag"`
+	Level       string `json:"level"`
+}
+
 // DeleteTodosのidのrequest型定義
 type DeleteTodosIds struct {
 	IDs []string `json:"ids"`
