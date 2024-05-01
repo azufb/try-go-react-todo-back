@@ -75,6 +75,7 @@ func (t TodoRepository) UpdateTodo(todo entity.Todo) error {
 		ID:          todo.ID,
 		Title:       todo.Title,
 		Description: todo.Description,
+		Status:      todo.Status,
 		Level:       todo.Level,
 		Tag:         todo.Tag,
 	}

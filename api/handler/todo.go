@@ -96,12 +96,12 @@ func (t *TodoHandler) FindTodo(c echo.Context) error {
 // タスクのStatusを変更する
 func (t *TodoHandler) UpdateTodo(c echo.Context) error {
 	// request
-	req := &schema.TodoReq{}
+	req := &schema.UpdateTodoReq{}
 	if err := c.Bind(req); err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	err := t.TodoUC.UpdateTodo(req.ID, req.Title, req.Description, req.Tag, req.Level)
+	err := t.TodoUC.UpdateTodo(req.ID, req.Title, req.Description, req.Status, req.Tag, req.Level)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
