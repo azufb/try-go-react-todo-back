@@ -10,5 +10,5 @@ type TodoRepository interface {
 	DeleteTodo(id string) error
 	DeleteTodos(ids []string) error
 	FindTodo(id string) (entity.Todo, error)
-	UpdateTodo(id string) error
+	UpdateTodo(todo entity.Todo) error
 }

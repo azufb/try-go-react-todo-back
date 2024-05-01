@@ -8,6 +8,7 @@ type TodoReq struct {
 	Title       string `json:"title"`
 	Description string `json:"description"`
 	Tag         string `json:"tag"`
+	Level       string `json:"level"`
 }
 
 // DeleteTodosのidのrequest型定義
@@ -17,20 +18,24 @@ type DeleteTodosIds struct {
 
 // responseの型定義
 type TodoRes struct {
-	ID     string `json:"id"`
-	Title  string `json:"title"`
-	Status string `json:"status"`
-	Level  string `json:"level"`
+	ID          string `json:"id"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	Status      string `json:"status"`
+	Level       string `json:"level"`
+	Tag         string `json:"tag"`
 }
 
 // APIレスポンスの型に変換する処理
 // メソッドからはEntityの型で返ってくるため
 func TodoResFromEntity(t entity.Todo) *TodoRes {
 	return &TodoRes{
-		ID:     t.ID,
-		Title:  t.Title,
-		Status: t.Status,
-		Level:  t.Level,
+		ID:          t.ID,
+		Title:       t.Title,
+		Description: t.Description,
+		Status:      t.Status,
+		Level:       t.Level,
+		Tag:         t.Tag,
 	}
 }
 

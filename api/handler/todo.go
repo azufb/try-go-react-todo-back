@@ -101,7 +101,7 @@ func (t *TodoHandler) UpdateTodo(c echo.Context) error {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
 
-	err := t.TodoUC.TodoRepository.UpdateTodo(req.ID)
+	err := t.TodoUC.UpdateTodo(req.ID, req.Title, req.Description, req.Tag, req.Level)
 	if err != nil {
 		return echo.NewHTTPError(http.StatusInternalServerError, err.Error())
 	}
